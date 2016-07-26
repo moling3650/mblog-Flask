@@ -2,6 +2,9 @@
 Thumbs.db
 ehthumbs.db
 
+# Virtualenv
+py3env/*
+
 # Folder config file
 Desktop.ini
 
