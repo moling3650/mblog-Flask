@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# @Author: anchen
+# @Author: moling
 # @Date:   2016-07-28 08:38:36
-# @Last Modified by:   anchen
 
-from flask import Flask
+
+from flask import Flask, render_template
 
 
 def index():
-    return 'hello world'
+    return render_template('test.html')
 
 
 def create_app():
