@@ -1,0 +1,44 @@
+{% extends 'bootstrap-base.html' %}
+
+{% block meta %}<!-- block meta  -->{% endblock %}
+{% block title %} Register {% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <form class="center-block" id="vm-form" role="from" v-on:submit.prevent="submit">
+        <h2 class="text-center">Register</h2>
+        <div class="alert alert-danger" role="alert" hidden="hidden">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            <span v-text="message"></span>
+        </div>
+        <div class="form-group form-group-lg">
+            <label class="sr-only" for="name">name</label>
+            <input class="form-control" id="name" name="name" type="text" placeholder="请输入名字" maxlength="50" v-model="name">
+        </div>
+        <div class="form-group form-group-lg">
+            <label class="sr-only" for="email">email</label>
+            <input class="form-control" id="email" name="email" type="email" placeholder="请输入邮箱" maxlength="50" v-model="email">
+        </div>
+        <div class="form-group form-group-lg">
+            <label class="sr-only" for="password">password</label>
+            <input class="form-control" id="password" name="password" type="password" placeholder="请输入口令" maxlength="50" v-model="password">
+        </div>
+        <div class="form-group form-group-lg">
+            <label class="sr-only" for="password2">password2</label>
+            <input class="form-control" id="password2" name="password2" type="password" placeholder="请重复口令" maxlength="50" v-model="password2">
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary btn-lg btn-block">注册</button>
+        </div>
+    </form>
+
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="/static/js/vue.min.js"></script>
+<script src="/static/js/sha1.min.js"></script>
+<script src="/static/js/register.js"></script>
+{% endblock %}

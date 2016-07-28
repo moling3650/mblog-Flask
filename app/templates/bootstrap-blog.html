@@ -1,0 +1,78 @@
+{% extends 'bootstrap-base.html' %}
+
+{% block title %}{{ blog.name }}{% endblock %}
+
+{% block content %}
+
+<main class="container">
+    <div class="row">
+        <div class="col-sm-9 col-xs-12 blog-main">
+            <article class="blog-post">
+                <h3 class="blog-post-title"><a href="#">{{ blog.name }}</a></h3>
+                <p class="blog-post-meta">发表于 <time>{{ blog.created_at|datetime }}</time></p>
+                <p>{{ blog.content|safe }}</p>
+                <hr class="divider" />
+            </article>
+            <div class="container" id="blog">
+                {% if __user__ %}
+                <h4>添加评论</h4>
+
+                <div class="row">
+                    <div class="alert alert-danger" hidden="hidden" style="margin: 15px;">
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        <span class="sr-only">Error:</span>
+                        <span v-text="message"></span>
+                    </div>
+                    <form class="form col-sm-6" v-on:submit.prevent="submit">
+                        <div class="form-group">
+                            <label class="sr-only" for="comment">内容</label>
+                            <textarea class="form-control" rows="15" id="comment" name="comment" placeholder="内容" v-model="comment"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                    <div class="col-sm-6 pre-scrollable" v-html="comment|marked"></div>
+                </div>
+
+                {% else %}
+                <h4>请<a href="/bootstrap/signin">登陆</a>后再评论，如未注册请先<a href="/bootstrap/register">注册</a></h4>
+                {% endif %}
+                <hr class="divider"/>
+
+                <h4>最新评论</h4>
+                <ul class="media-list">
+                    <li class="media" v-for="c in comments" track-by="id">
+                        <div class="media-left">
+                            <img class="media-object img-thumbnail" :src="c.user_image" alt="user_image" width="150" height="150"/>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading" v-text="c.user_name"></h4>
+                            <small v-text="'发表于 ' + c.created_at.toDateTime('yyyy-MM-dd')"></small>
+                            <hr class="divider"/>
+                            <article>
+                                <p v-html="c.content"></p>
+                            </article>
+                        </div>
+                        <hr class="divider"/>
+                    </li>
+                </ul><!-- media-list -->
+            </div>
+        </div>
+        <div class="col-sm-3 hidden-xs h1 text-center">
+            {% if __user__ %}
+            <img src={{ __user__.image }} alt="user_image" class="img-thumbnail img-respinsuve" width="150" height="150"/>
+            {% else %}
+            <img src="/static/img/user.png" alt="user_image" class="img-thumbnail img-respinsuve" width="150" height="150"/>
+            {% endif %}
+        </div>
+    </div>
+</main>
+
+{% endblock %}
+
+{% block script %}
+<script src="/static/js/vue.min.js"></script>
+<script src="/static/js/marked.min.js"></script>
+<script src="/static/js/blog.js"></script>
+{% endblock %}

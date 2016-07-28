@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>text-overflow</title>
+<style type="text/css">
+.test_demo{
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
+    width:200px;
+    background:#ccc;
+}
+.test_demo2{
+    margin-top:30px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    display:-webkit-box;-webkit-line-clamp:2;/*行数*/
+    -webkit-box-orient:vertical;
+    width:200px;
+    background:#ccc;
+}
+</style>
+</head>
+<body>
+<div class="test_demo">
+  超酷的IT技术学习平台（我是省略号）
+</div>
+<div class="test_demo2">
+ 超酷的IT技术学习平台超酷的IT技术学习平台（我是省略号）
+
+</div>
+</body>
+</html>
+<!--
+<div class="container-fluid">
+    <p>...</p>
+    <div class="highlight">
+        <pre>...</pre>
+    </div>
+    <h3>...</h3>
+    <ol>
+        <li>...</li>
+        <li>...</li>
+    </ol>
+</div> -->
