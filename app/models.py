@@ -36,6 +36,8 @@ class Blog(db.Model):
     user_id = db.Column(db.String(50), nullable=False)
     user_name = db.Column(db.String(50), nullable=False)
     user_image = db.Column(db.String(500), nullable=False)
+    name = db.Column(db.String(50), nullable=False)
+    summary = db.Column(db.String(200), nullable=False)
     content = db.Column(db.Text(), nullable=False)
     created_at = db.Column(db.Float, nullable=False, default=time.time)
 
