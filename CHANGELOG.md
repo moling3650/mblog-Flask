@@ -3,6 +3,8 @@
 ### 2016.07.31
 - 添加ORM的Blog模型
 - 添加查询blogs的api
+- 添加jinja2的filters(datetime: 智能显示时间；marked：markdown文本，包括代码高亮 )
+- 修复api的json显示，可以支持显示汉字，压缩容量
 
 ### 2016.07.30
 - 添加ORM的User模型
