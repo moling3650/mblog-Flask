@@ -13,6 +13,8 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://moling:www-data@localhost/mblog'
     app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+    app.config['JSON_AS_ASCII'] = False
+    app.config['JSONIFY_MIMETYPE'] = 'application/json;charset=utf-8'
     db.init_app(app)
     app.jinja_env.filters['datetime'] = datetime_filter
     app.jinja_env.filters['marked'] = marked_filter
