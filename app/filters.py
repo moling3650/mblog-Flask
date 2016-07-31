@@ -5,7 +5,7 @@
 # @Link    : http://qiangtaoli.com
 # @Version : $Id$
 import time
-import datetime
+from datetime import datetime
 import mistune
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name
