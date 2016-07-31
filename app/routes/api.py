@@ -3,7 +3,7 @@
 # @Date:   2016-07-28 23:39:14
 
 from flask import Blueprint, jsonify
-from ..models import User
+from ..models import User, Blog
 
 api = Blueprint('api', __name__, url_prefix='/api')
 
@@ -19,3 +19,9 @@ def test():
 def api_get_users():
     users = User.query.all()
     return jsonify(users=[user.to_json() for user in users])
+
+
+@api.route('/blogs')
+def api_get_blogs():
+    blogs = Blog.query.all()
+    return jsonify(blogs=[blog.to_json() for blog in blogs])
