@@ -45,3 +45,19 @@ class Blog(db.Model):
         json_blog = self.__dict__.copy()
         json_blog.pop('_sa_instance_state')
         return json_blog
+
+
+class Comment(db.Model):
+    __tablename__ = 'comments'
+    id = db.Column(db.String(50), nullable=False, primary_key=True, default=next_id)
+    blog_id = db.Column(db.String(50), nullable=False)
+    user_id = db.Column(db.String(50), nullable=False)
+    user_name = db.Column(db.String(50), nullable=False)
+    user_image = db.Column(db.String(500), nullable=False)
+    content = db.Column(db.Text(), nullable=False)
+    created_at = db.Column(db.Float, nullable=False, default=time.time)
+
+    def to_json(self):
+        json_comment = self.__dict__.copy()
+        json_comment.pop('_sa_instance_state')
+        return json_comment
