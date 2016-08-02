@@ -14,8 +14,8 @@
             <tr>
                 <th class="" v-for="title of fields" v-text="title"></th>
                 <th class="uk-width-2-10">创建时间</th>
-                <!-- <th class="uk-width-2-10" v-show="'{{table}}'!=='users' && {{__user__.admin}}">操作</th> -->
-                <th class="uk-width-2-10">操作</th>
+                <th class="uk-width-2-10" v-show="'{{table}}'!=='users' && {{request.__user__.admin}}">操作</th>
+                <!-- <th class="uk-width-2-10">操作</th> -->
             </tr>
         </thead>
         <tbody>
@@ -25,8 +25,8 @@
                     <span v-else v-text="item[$key]"></span>
                 </td>
                 <td v-text="item.created_at.toDateTime('yyyy-MM-dd')"></td>
-                <!-- <td v-show="'{{table}}' !== 'users' && {{__user__.admin}}"> -->
-                <td>
+                <td v-show="'{{table}}' !== 'users' && {{request.__user__.admin}}">
+                <!-- <td> -->
                     <a v-show="'{{table}}' === 'blogs'" :href="'blogs/edit?id='+item.id"><i class="uk-icon-edit"></i></a>
                     <a href="#" v-on:click="delete_item(item)"><i class="uk-icon-trash"></i></a>
                 </td>
