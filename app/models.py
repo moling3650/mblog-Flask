@@ -3,9 +3,10 @@
 # @Date    : 2016-07-30 14:23:19
 # @Author  : moling (365024424@qq.com)
 # @Link    : http://qiangtaoli.com
-
+import hashlib
 import time
 import uuid
+from flask import current_app
 from app import db
 
 
@@ -28,6 +29,40 @@ class User(db.Model):
         json_user['password'] = '******'
         json_user.pop('_sa_instance_state')
         return json_user
+
+    @classmethod
+    def find_by_cookie(cls, cookie):
+        if not cookie:
+            return None
+        try:
+            L = cookie.split('-')
+            if len(L) != 3:
+                return None
+            uid, expires, sha1 = L
+            if int(expires) < time.time():
+                return None
+            user = cls.query.get(uid)
+            if user is None:
+                return None
+            s = '%s-%s-%s-%s' % (uid, user.password, expires, current_app.config['COOKIE_KEY'])
+            if sha1 != hashlib.sha1(s.encode('utf-8')).hexdigest():
+                return None
+            user.passwd = '******'
+            return user
+        except:
+            return None
+
+    def signin(self, response, max_age=86400):
+        expires = str(int(time.time() + max_age))
+        s = '%s-%s-%s-%s' % (self.id, self.password, expires, current_app.config['COOKIE_KEY'])
+        L = [self.id, expires, hashlib.sha1(s.encode('utf-8')).hexdigest()]
+        response.set_cookie(current_app.config['COOKIE_NAME'], '-'.join(L), max_age, httponly=True)
+        return response
+
+    @classmethod
+    def signout(cls, response):
+        response.set_cookie(current_app.config['COOKIE_NAME'], '-deleted-', max_age=0, httponly=True)
+        return response
 
 
 class Blog(db.Model):
