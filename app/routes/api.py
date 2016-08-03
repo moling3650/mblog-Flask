@@ -36,6 +36,13 @@ def api_get_items(tablename):
     return jsonify(items=[item.to_json() for item in items], page=p.__dict__)
 
 
+# 取某篇博客
+@api.route('/blogs/<id>')
+def api_get_blog(id):
+    return jsonify(Blog.query.get_or_404(id).to_json())
+
+
+# 取某篇博客的所有评论
 @api.route('/blogs/<id>/comments')
 def api_get_blog_comments(id):
     comments = Comment.query.filter_by(blog_id=id).all()
