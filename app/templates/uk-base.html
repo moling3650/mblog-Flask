@@ -35,12 +35,12 @@
                 <li><a href="//github.com/moling3650/mblog" target="_blank"><i class="uk-icon-code"></i> code</a></li>
             </ul>
             <ul class="uk-navbar-nav uk-navbar-flip">
-                {% if request.__user__ %}
+                {% if g.__user__ %}
                 <li class="uk-parent" data-uk-dropdown="" aria-haspopup="true" aria-expanded="true">
-                    <a href="#"><i class="uk-icon-user"></i> <span class="uk-hidden-small">{{ request.__user__.name }}</span> <i class="uk-icon-caret-down"></i></a>
+                    <a href="#"><i class="uk-icon-user"></i> <span class="uk-hidden-small">{{ g.__user__.name }}</span> <i class="uk-icon-caret-down"></i></a>
                     <div class="uk-dropdown uk-dropdown-navbar uk-dropdown-bottom">
                         <ul class="uk-nav uk-nav-navbar">
-                            {% if request.__user__.admin %}
+                            {% if g.__user__.admin %}
                             <li><a href="/uk/manage/blogs/create"><i class="uk-icon-pencil"></i> New Blog</a></li>
                             {% endif %}
                             <li><a href="/signout"><i class="uk-icon-sign-out"></i> Sign Out</a></li>

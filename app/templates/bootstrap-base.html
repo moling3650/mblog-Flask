@@ -53,13 +53,13 @@
                         <li><a href="//github.com/moling3650/mblog" target="_blank"><span class="glyphicon glyphicon-flash"></span> Code</a></li>
                     </ul><!--/.navbar-left -->
                     <ul class="nav navbar-nav navbar-right">
-                        {% if request.__user__ %}
+                        {% if g.__user__ %}
                         <li class="dropdown">
                         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                            <span class="glyphicon glyphicon-user"> {{ request.__user__.name }} </span><span class="caret"></span>
+                            <span class="glyphicon glyphicon-user"> {{ g.__user__.name }} </span><span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-left">
-                            {% if request.__user__.admin %}
+                            {% if g.__user__.admin %}
                             <li><a href="/bootstrap/manage/blogs/create"><span class="glyphicon glyphicon-pencil"> New Blog</span></a></li>
                             {% endif %}
                             <li><a href="/signout"><span class="glyphicon glyphicon-log-out"> Sign Out</span></a></li>
