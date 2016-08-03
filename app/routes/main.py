@@ -42,11 +42,11 @@ def show_blog(template, id):
     return render_template('%s-blog.html' % template, blog=Blog.query.get(id))
 
 
-# @main.route('/<template>/manage')
-# def manage(template):
-#     redirect(url_for('.manage_table', template=template, tablename='blogs'))
+@main.route('/<template>/manage')
+def manage(template):
+    return redirect(url_for('.manage_table', template=template, tablename='blogs'))
 
 
-# @main.route('/<template>/manage/<tablename>')
-# def manage_table(template, tablename):
-#     return render_template('%s-manage.html' % (template), table=tablename)
+@main.route('/<template>/manage/<tablename>')
+def manage_table(template, tablename):
+    return render_template('%s-manage.html' % (template), table=tablename)
