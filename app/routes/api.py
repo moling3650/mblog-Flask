@@ -2,9 +2,11 @@
 # @Author: moling
 # @Date:   2016-07-28 23:39:14
 
-from flask import Blueprint, jsonify, request
-from ..models import User, Blog, Comment
-from ..helper import Paginate, set_positive_int
+from flask import Blueprint, g, jsonify, request
+from app import db
+from ..models import User, Blog, Comment, next_id
+from ..helper import Paginate, set_positive_int, check_admin, check_string
+
 
 api = Blueprint('api', __name__, url_prefix='/api')
 
@@ -47,3 +49,25 @@ def api_get_blog(id):
 def api_get_blog_comments(id):
     comments = Comment.query.filter_by(blog_id=id).all()
     return jsonify(comments=[c.to_json() for c in comments])
+
+
+# 创建新博客
+@api.route('/blogs', methods=['POST'])
+def api_create_blog():
+    check_admin(g.__user__)
+    name = request.json.get('name')
+    summary = request.json.get('summary')
+    content = request.json.get('content')
+    check_string(name=name, summary=summary, content=content)
+    id = next_id()
+    blog = Blog(
+        id=id,
+        user_id=g.__user__.id,
+        user_name=g.__user__.name,
+        user_image=g.__user__.image,
+        name=name.strip(),
+        summary=summary.strip(),
+        content=content.lstrip('\n').rstrip()
+    )
+    db.session.add(blog)
+    return jsonify(id=id)
