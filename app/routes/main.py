@@ -39,14 +39,23 @@ def signin(template):
 # 博客页面
 @main.route('/<template>/blog/<id>')
 def show_blog(template, id):
-    return render_template('%s-blog.html' % template, blog=Blog.query.get(id))
+    return render_template('%s-blog.html' % template, blog=Blog.query.get_or_404(id))
 
 
+# 管理页面
 @main.route('/<template>/manage')
 def manage(template):
     return redirect(url_for('.manage_table', template=template, tablename='blogs'))
 
 
+# 管理用户、博客、评论
 @main.route('/<template>/manage/<tablename>')
 def manage_table(template, tablename):
     return render_template('%s-manage.html' % (template), table=tablename)
+
+
+# 创建或编辑博客
+@main.route('/<template>/manage/blogs/create')
+@main.route('/<template>/manage/blogs/edit')
+def manage_create_or_edit_blog(template):
+    return render_template('%s-blog_edit.html' % template)
