@@ -4,6 +4,7 @@
 # @Author  : moling (365024424@qq.com)
 # @Link    : http://qiangtaoli.com
 # @Version : $Id$
+from flask import abort
 
 
 # 网页翻页信息类
@@ -22,3 +23,14 @@ def set_positive_int(num_str, default=1):
     except:
         return default
     return num if num > 0 else default
+
+
+def check_admin(user):
+    if user is None or not user.admin:
+        abort(403, 'current user must be admin')
+
+
+def check_string(**kw):
+    for key, string in kw.items():
+        if not string or not string.strip():
+            abort(400, '%s cannot be empty.' % key)
