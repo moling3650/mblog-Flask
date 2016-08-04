@@ -8,6 +8,7 @@ import time
 import uuid
 from flask import current_app
 from app import db
+from app.filters import marked_filter
 
 
 def next_id():
@@ -92,7 +93,9 @@ class Comment(db.Model):
     content = db.Column(db.Text(), nullable=False)
     created_at = db.Column(db.Float, nullable=False, default=time.time)
 
-    def to_json(self):
+    def to_json(self, *, marked=False):
         json_comment = self.__dict__.copy()
         json_comment.pop('_sa_instance_state')
+        if marked:
+            json_comment['content'] = marked_filter(self.content)
         return json_comment
