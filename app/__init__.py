@@ -3,20 +3,16 @@
 # @Date:   2016-07-28 08:38:36
 from flask import Flask, g, request
 from flask_sqlalchemy import SQLAlchemy
+from config import config
 from app.filters import datetime_filter, marked_filter
+
 db = SQLAlchemy()
 
 
-def create_app():
+def create_app(config_name):
     app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://moling:www-data@localhost/mblog'
-    app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-    app.config['JSON_AS_ASCII'] = False
-    app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
-    app.config['JSONIFY_MIMETYPE'] = 'application/json;charset=utf-8'
-    app.config['COOKIE_NAME'] = 'aweSession'
-    app.config['COOKIE_KEY'] = 'MbLog'
+    app.config.from_object(config[config_name])
+    config[config_name].init_app(app)
     db.init_app(app)
     app.jinja_env.filters.update(datetime=datetime_filter, marked=marked_filter)
 
