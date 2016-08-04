@@ -39,7 +39,7 @@ var vmRegister = new Vue({
             postJSON('/register', {
                 name: self.name,
                 email: self.email,
-                sha1_pw: CryptoJS.SHA1(self.email + ':' + self.password).toString(),
+                sha1_pw: self.password==='' ? '' : CryptoJS.SHA1(self.email + ':' + self.password).toString(),
                 oid: getUrlParams('oid'),
                 image: getUrlParams('image')
             }, function (err, result) {
