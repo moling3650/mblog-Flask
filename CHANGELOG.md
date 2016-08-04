@@ -1,7 +1,13 @@
 # 更新日志
 ### 2016.08.03
-- 修复登陆bug，原来是flask
-- 
+- 修复登陆bug，原来是flask的全局变量用错了，*g*是全局的，*request*却不是
+- `User`类添加`signin`、`signout`、`find_by_cookie`的方法
+- 添加`before_requesrt`装饰器，在每个请求前通过`User.find_by_cookie`获取到当前用户的信息
+- 添加管理页面的route
+- 添加查询某篇博客的api
+  - /api/blogs/<id>：查询某篇博客
+
+
 ### 2016.08.02
 - 实现简单的注册登陆功能，没加验证，有bug
 
