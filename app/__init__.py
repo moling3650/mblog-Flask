@@ -13,24 +13,19 @@ def create_app():
     app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
     app.config['JSON_AS_ASCII'] = False
-    app.config['JSONIFY_PRETTYPRINT_REGULAR'] = False
+    app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
     app.config['JSONIFY_MIMETYPE'] = 'application/json;charset=utf-8'
     app.config['COOKIE_NAME'] = 'aweSession'
     app.config['COOKIE_KEY'] = 'MbLog'
     db.init_app(app)
-    app.jinja_env.filters['datetime'] = datetime_filter
-    app.jinja_env.filters['marked'] = marked_filter
+    app.jinja_env.filters.update(datetime=datetime_filter, marked=marked_filter)
 
     from app.models import User
 
     @app.before_request
     def before_request():
-        g.__user__ = None
         cookie = request.cookies.get(app.config['COOKIE_NAME'])
-        if cookie:
-            user = User.find_by_cookie(cookie)
-            if user:
-                g.__user__ = user
+        g.__user__ = User.find_by_cookie(cookie)
 
     from app.routes.main import main as main_blueprint
     app.register_blueprint(main_blueprint)
