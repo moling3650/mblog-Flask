@@ -20,8 +20,8 @@
             {% endfor %}
         </div>
         <div class="col-sm-3 hidden-xs h1 text-center">
-            {% if __user__ %}
-            <img src={{ __user__.image }} alt="user_image" class="img-thumbnail img-respinsuve" width="150" height="150"/>
+            {% if g.__user__ %}
+            <img src={{ g.__user__.image }} alt="user_image" class="img-thumbnail img-respinsuve" width="150" height="150"/>
             {% else %}
             <img src="../static/img/user.png" alt="user_image" class="img-thumbnail img-respinsuve" width="150" height="150"/>
             {% endif %}
