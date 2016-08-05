@@ -1,14 +1,17 @@
 # 更新日志
+### 2016.08.05
+- 重构config
+
 ### 2016.08.04
 - 添加三个check函数，如有错误直接BAD_REQUEST
 - 修复前端的ajax函数，使它可以获取flask的abort的报错信息
 - 添加api
- - GET /api/<tablename>：取（用户、博客、评论）表中一页的元素
- - GET /api/<tablename>/<id>：取（用户、博客、评论）表中一个元素
+ - GET /api/\<tablename\>：取（用户、博客、评论）表中一页的元素
+ - GET /api/\<tablename\>/\<id\>：取（用户、博客、评论）表中一个元素
  - POST /api/blogs：创建一个博客
- - POST /api//blogs/<id>：修改某篇博客
- - POST /api/blogs/<blog_id>/comments：创建新评论
- - POST /api/<tablename>/<id>/delete：删除表中的元素
+ - POST /api//blogs/\<id\>：修改某篇博客
+ - POST /api/blogs/\<blog_id\>/comments：创建新评论
+ - POST /api/\<tablename\>/\<id\>/delete：删除表中的元素
 - Comment类的to_json方法支持markdown正文
 - User、Blog、Comment初始化时直接写入数据库
 - User类添加验证密码的方法
