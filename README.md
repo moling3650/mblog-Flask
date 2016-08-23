@@ -11,3 +11,19 @@ mblog by Flask
 
 [0]: https://github.com/moling3650/mblog
 [1]: https://github.com/moling3650/mblog-Flask/blob/master/CHANGELOG.md
+
+### 项目结构
+> + app
+  + routes:         所有的view functions，俗称的控制层
+    + api.py: 模型层的api蓝图
+    + auth.py: 用户验证的蓝图
+    + main.py: 模板渲染的蓝图
+  + static:         所有的静态文件
+  + template:       所有的视图模板
+  + \_\_init\_\_.py:    app构造器
+  + filters.py:     过滤器，主要用于jinja2
+  + helper.py:      辅助函数库
+  + middleware.py: 中间件
+  + models.py:     模型层，主要业务处理
++ config.py:   配置文件
++ run.py:      app运行器
